@@ -1,201 +1,54 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENA - Sistema de Gestión</title>
-    <style>
-        :root {
-            --primary: #0f0c29;
-            --secondary: #1a1a2e;
-            --accent: #7b2cbf;
-            --text: #f8f9fa;
-            --highlight: #ff7b00;
-        }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-attachment: fixed;
-        }
-        
-        .glass-container {
-            background: rgba(15, 12, 41, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            width: 90%;
-            max-width: 900px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: fadeIn 1s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-        }
-        
-        .sena-highlight {
-            color: var(--highlight);
-            font-weight: bold;
-            text-shadow: 0 0 12px rgba(255, 123, 0, 0.6);
-        }
-        
-        p.subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        
-        .buttons-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .btn-primary {
-            background-color: var(--accent);
-            color: white;
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-primary:hover {
-            background-color: #5a189a;
-        }
-        
-        .btn-secondary:hover {
-            background-color: rgba(123, 44, 191, 0.15);
-        }
-        
-        @media (max-width: 768px) {
-            .glass-container {
-                width: 90%;
-                padding: 30px 20px;
-            }
-            
-            .buttons-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        .apprentice-list {
-            width: 100%;
-            margin-top: 30px;
-            border-collapse: collapse;
-        }
-        
-        .apprentice-list th {
-            background-color: rgba(123, 44, 191, 0.2);
-            padding: 12px 15px;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
-        
-        .apprentice-list td {
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .apprentice-list tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .apprentice-list tr:hover td {
-            background-color: rgba(255, 123, 0, 0.05);
-        }
-        
-        .total-count {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        footer {
-            margin-top: 40px;
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="glass-container">
-        <h1>Lista de <span class="sena-highlight">Aprendices</span></h1>
-        
-        <table class="apprentice-list">
-            <thead>
-                <tr>
-                    <th>Documento</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Programa</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for aprendiz in lista_aprendices %}
-                <tr>
-                    <td>{{ aprendiz.documento_identidad }}</td>
-                    <td>{{ aprendiz.nombre }}</td>
-                    <td>{{ aprendiz.apellido }}</td>
-                    <td>{{ aprendiz.programa }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        <p class="total-count">Total aprendices: {{ total_aprendices }}</p>
-    </div>
-    
-    <footer>
-        Sistema de Gestión de Aprendices © 2023
-    </footer>
-</body>
-</html>
+{% extends 'base.html' %}
 
+{% block title %}Lista de Aprendices{% endblock %}
+
+{% block content %}
+<div class="glass-container">
+    <h1 class="text-center mb-4">Lista de Aprendices</h1>
+
+    <!-- Barra de búsqueda -->
+    <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Buscar aprendiz..." id="search">
+    </div>
+
+    <!-- Tabla -->
+    <table class="table table-hover">
+        <thead class="table-success">
+            <tr>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aprendiz in lista_aprendices %}
+            <tr>
+                <td>{{ aprendiz.documento_identidad }}</td>
+                <td>{{ aprendiz.nombre }}</td>
+                <td>{{ aprendiz.apellido }}</td>
+                <td>{{ aprendiz.telefono }}</td>
+                <td>{{ aprendiz.correo }}</td>
+<td>
+    <a 
+        href="/admin/aprendices/aprendiz/{{ aprendiz.id }}/change/" 
+        class="btn btn-sm btn-warning"
+    >
+        <i class="bi bi-pencil"></i> Editar  <!-- Icono opcional -->
+    </a>
+    <a 
+        href="/admin/aprendices/aprendiz/{{ aprendiz.id }}/delete/" 
+        class="btn btn-sm btn-danger"
+        onclick="return confirm('¿Eliminar a {{ aprendiz.nombre }}?')"
+    >
+        <i class="bi bi-trash"></i> Eliminar  <!-- Icono opcional -->
+    </a>
+</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
