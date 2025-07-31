@@ -50,6 +50,10 @@
                         <td>{{ instructor.nivel_educativo }}</td>
                         <td>{{ instructor.fecha_nacimiento }}</td>
                         <td>{{ instructor.especialidad }}</td>
+                        <td>
+                            <a href="/admin/instructores/instructor/{{ instructor.id }}/change/" class="btn btn-sm btn-warning"><li class="bi bi-pencil"> Editar</li></a>
+                            <a href="/admin/instructores/instructor/{{ instructor.id }}/delete/" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar a {{ instructor.nombre_completo }}?')"><li class="bi bi-trash3"> Eliminar</li></a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
