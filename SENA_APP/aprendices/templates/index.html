@@ -3,15 +3,24 @@
 {% block title %}SENA - Sistema de Gestión{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 glass-container text-center">
-        <h1 class="mb-4">Bienvenido a <span class="text-success">SENA</span></h1>
-        <p class="lead mb-4">Ingresa para ver los aprendices registrados y gestionar el sistema</p>
-        
-        <div class="d-flex gap-3 justify-content-center">
-            <a href="/admin" class="btn btn-sena">Panel de Administración</a>
-            <a href="/aprendices/" class="btn btn-outline-success">Lista de Aprendices</a>
-            <a href="/instructores/" class="btn btn-outline-success">Lista de Instructores</a>
+<!-- Contenedor flexible que ocupa el 100% del alto disponible -->
+<div class="d-flex flex-column justify-content-center min-vh-100 py-5">  <!-- py-5: padding vertical -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 bg-dark bg-opacity-50 rounded-4 p-5 border border-success border-opacity-25 shadow-lg">
+            <h1 class="text-center mb-4 fw-bold text-success">Bienvenido a <span class="text-white">SENA</span></h1>
+            <p class="lead text-center mb-4 text-light">Gestión integral de aprendices e instructores</p>
+            
+            <div class="d-flex flex-wrap gap-3 justify-content-center">
+                <a href="/admin" class="btn btn-success px-4 py-2 fw-bold">
+                    <i class="bi bi-shield-lock"></i> Panel de Administración
+                </a>
+                <a href="/aprendices/" class="btn btn-outline-success px-4 py-2">
+                    <i class="bi bi-people-fill"></i> Aprendices
+                </a>
+                <a href="/instructores/" class="btn btn-outline-success px-4 py-2">
+                    <i class="bi bi-person-badge"></i> Instructores
+                </a>
+            </div>
         </div>
     </div>
 </div>
