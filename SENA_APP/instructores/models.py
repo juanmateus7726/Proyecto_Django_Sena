@@ -1,0 +1,41 @@
+from django.db import models
+
+# Create your models here.
+class instructor(models.Model):
+    TIPO_DOCUMENTO_CHOICE = [
+        ('CC', 'Cedula de Ciudadania'),
+        ('CE', 'Cedula de Extranjeria'),
+        ('TI', 'Tarjeta de Identidad'),
+        ('PAS', 'Pasaporte'),
+    ]
+    
+    NIVEL_DE_EDUCACION_CHOICE = [
+        ('TEC', 'Tecnico'),
+        ('TGL', 'Tecnologo'),
+        ('PRE', 'Pregrado'),
+        ('ESP', 'Especializacion'),
+        ('MAE', 'Maestria'),
+        ('DOC', 'Doctorado'),
+    ]
+    
+    documento_identidad = models.CharField(max_length=20, unique=True)
+    tipo_documento = models.CharField(max_length=3, choices=TIPO_DOCUMENTO_CHOICE, default='CC')
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=10, null=True)
+    correo = models.EmailField(null=True)
+    fecha_nacimiento = models.DateField()
+    ciudad = models.CharField(max_length=100, null=True)
+    direccion = models.TextField(null=True)
+    nivel_educativo = models.CharField(max_length=3, choices=NIVEL_DE_EDUCACION_CHOICE, default='MAE')
+    especialidad = models.CharField(max_length=100)
+    anios_experiencia = models.PositiveIntegerField()
+    activo = models.BooleanField(default=True)
+    fecha_vinculacion = models.DateField()
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.nombre} {self.apellido} - {self.especialidad}"
+    
+    def nombre_completo(self):
+        return f"{self.nombre} {self.apellido}"
