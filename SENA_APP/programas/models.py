@@ -44,11 +44,13 @@ class Programa(models.Model):
         verbose_name_plural = "Programas de Formacion"
         ordering = ['nombre']
         
-        def __srt__(self):
-            return f"{self.codigo} - {self.nombre}"
         
-        def get_duracion_completa(self):
-            return f"{self.duracion_meses} meses ({self.duracion_horas} horas)"
         
-        def is_activo(self):
-            return self.estado == 'ACT'
+    def __srt__(self):
+        return f"{self.codigo} - {self.nombre}"
+        
+    def get_duracion_completa(self):
+        return f"{self.duracion_meses} meses ({self.duracion_horas} horas)"
+        
+    def is_activo(self):
+        return self.estado == 'ACT'

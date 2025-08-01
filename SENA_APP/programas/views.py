@@ -1,4 +1,4 @@
-from http.client import HTTPResponse
+from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render
 from .models import Programa
@@ -12,4 +12,4 @@ def programas(request):
         'lista_programas': lista_programas,
         'total_programas': lista_programas.count(),
     }
-    return HTTPResponse(template.render(context, request))
+    return HttpResponse(template.render(context, request))
