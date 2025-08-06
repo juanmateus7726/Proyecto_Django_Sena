@@ -3,78 +3,76 @@
 {% block title %}Lista de Programas SENA - SENA APP{% endblock %}
 
 {% block content %}
-<div class="d-flex  flex-column min-vh-100 py-5">
+<div class="d-flex flex-column min-vh-100 py-4">
     <div class="container">
-<div class="row">
-    <div class="col-12">
+        <!-- Header con título y botón -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Lista de Progrmas que el SENA ofrece</h2>
+            <h2 class="fw-bold text-success">
+                <i class="bi bi-book"></i> Programas SENA
+            </h2>
             <div>
-                <span class="badge bg-info fs-6">Total: {{ total_programas }} Programas</span>
+                <span class="badge bg-success fs-6">
+                    <i class="bi bi-list-check"></i> Total: {{ total_programas }}
+                </span>
                 <a href="/admin/programas/programa/add" class="btn btn-success ms-2">
-                    Nuevo Programa
+                    <i class="bi bi-plus-circle"></i> Nuevo Programa
                 </a>
             </div>
         </div>
-    </div>
-</div>
 
-{% if lista_programas %}
-<div class="row">
-    <div class="col-12">
-        <div class="table-responsive">
-            <table class="table-striped table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Codigo</th>
-                        <th>Nombre</th>
-                        <th>Nivel de Formacion</th>
-                        <th>Modalidad</th>
-                        <th>Meses</th>
-                        <th>Descripcion</th>
-                        <th>Centro Formacion</th>
-                        <th>Regional</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for programa in lista_programas %}
-                    <tr>
-                        <th>{{ programa.codigo }}</th>
-                        <th>{{ programa.nombre }}</th>
-                        <th>{{ programa.nivel_formacion }}</th>
-                        <th>{{ programa.modalidad }}</th>
-                        <th>{{ programa.duracion_meses }}</th>
-                        <th>{{ programa.descripcion }}</th>
-                        <th>{{ programa.regional }}</th>
-                        <td>
-                            <a href="/admin/programas/programa/{{ programa.id }}/change/"
-                                class="btn btn-sm btn-outline-primary">
-                                Editar
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        {% if lista_programas %}
+        <!-- Tabla de programas -->
+        <div class="card border-success shadow">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-success">
+                            <tr>
+                                <th class="text-nowrap">Código</th>
+                                <th>Nombre</th>
+                                <th>Nivel</th>
+                                <th>Modalidad</th>
+                                <th>Duración</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for programa in lista_programas %}
+                            <tr>
+                                <td><strong>{{ programa.codigo }}</strong></td>
+                                <td>{{ programa.nombre }}</td>
+                                <td>{{ programa.nivel_formacion }}</td>
+                                <td>{{ programa.modalidad }}</td>
+                                <td>{{ programa.duracion_meses }} meses</td>
+                                <td>
+                                    <a href="/admin/programas/programa/{{ programa.id }}/change/" 
+                                    class="btn btn-sm btn-outline-warning">
+                                        <i class="bi bi-pencil-square"></i> Editar
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-{% else %}
-<div class="row">
-    <div class="col-12">
-        <div class="alert alert-info" role="alert">
-            <h4 class="alert-heading">No hay Programas registrados</h4>
-            <p>Aun no se han registrado Programas en el sistema.</p>
-            <hr>
-            <p class="mb-0">
-                <a href="{% url 'admin:programas_programa_add' %}" class="btn btn-success">
-                    Registrar Primer Programa
-                </a>
-            </p>
+
+        {% else %}
+        <!-- Mensaje cuando no hay programas -->
+        <div class="alert alert-info bg-dark border-success text-white">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-info-circle-fill fs-3 me-3"></i>
+                <div>
+                    <h4 class="alert-heading">No hay programas registrados</h4>
+                    <p>El sistema no tiene programas cargados actualmente.</p>
+                    <a href="{% url 'admin:programas_programa_add' %}" class="btn btn-success mt-2">
+                        <i class="bi bi-plus-circle"></i> Registrar Primer Programa
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-{% endif %}
+        {% endif %}
     </div>
 </div>
 {% endblock %}
