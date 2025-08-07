@@ -40,7 +40,7 @@ def lista_cursos(request):
     return HttpResponse(template.render(context,request))
 
 def detalle_curso(request, curso_id):
-    curso = get_object_or_404(curso, id=curso_id)
+    curso = get_object_or_404(Curso, id=curso_id)
     aprendices_curso = curso.aprendizcurso_set.all()
     instructores_curso = curso.instructorcurso_set.all()
     template = loader.get_template('detalle_curso.html')

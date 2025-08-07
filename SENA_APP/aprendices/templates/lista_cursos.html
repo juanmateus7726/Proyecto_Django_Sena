@@ -3,52 +3,72 @@
 {% block title %}Lista de Cursos SENA - SENA APP{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Lista de Cursos SENA</h2>
-            <div>
-                <span class="badge bg-info fs-6">Total: {{ total_cursos }} Cursos</span>
-                <a href="{% url 'admin:aprendices_curso_add' %}" class="btn btn-success ms-2">
-                    Nuevo Curso
-                </a>
-            </div>
+<div class="d-flex  flex-column min-vh-100 py-5">
+    <div class="container">
+<div class="container py-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-success">
+            <i class="bi bi-list-task me-2"></i>Cursos SENA
+        </h2>
+        <div>
+            <span class="badge bg-success">{{ total_cursos }} cursos</span>
+            <a href="{% url 'admin:aprendices_curso_add' %}" class="btn btn-success ms-2">
+                <i class="bi bi-plus-circle"></i> Nuevo
+            </a>
         </div>
     </div>
-</div>
 
-{% if lista_cursos %}
-<div class="row">
-    <div class="col-12">
+    <!-- Tabla de cursos -->
+    {% if lista_cursos %}
+    <div class="card shadow-sm border-0">
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead class="table-dark">
+            <table class="table table-hover mb-0">
+                <thead class="table-success">
                     <tr>
-                        <th>Codigo Curso</th>
-                        <th>Nombre Curso</th>
-                        <th>Programa de Formacion</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Programa</th>
                         <th>Instructor</th>
-                        <th>Fecha Inicio</th>
-                        <th>Fecha Finalizacion</th>
-                        <th>Horario</th>
+                        <th>Fechas</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for curso in lista_cursos %}
                     <tr>
-                        <td><strong><a href ="curso/{{ curso.id }}">{{ curso.codigo }}</a></strong></td>
+                        <td>
+                            <a href="curso/{{ curso.id }}" class="text-success fw-bold">
+                                {{ curso.codigo }}
+                            </a>
+                        </td>
                         <td>{{ curso.nombre }}</td>
                         <td>{{ curso.programa }}</td>
-                        <td>{{ curso.instructor_coordinador }}</td>
-                        <td>{{ curso.fecha_inicio|date:"d/m/Y" }}</td>
-                        <td>{{ curso.fecha_fin|date:"d/m/Y" }}</td>
-                        <td>{{ curso.horario }}</td>
-                        <td>{{ curso.estado }}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-person-badge me-2 text-muted"></i>
+                                {{ curso.instructor_coordinador|truncatechars:15 }}
+                            </div>
+                        </td>
+                        <td>
+                            <small>
+                                {{ curso.fecha_inicio|date:"d/M/y" }}<br>
+                                {{ curso.fecha_fin|date:"d/M/y" }}
+                            </small>
+                        </td>
+                        <td>
+                            <span class="badge 
+                                {% if curso.estado == 'INI' or curso.estado == 'EJE' %}bg-success
+                                {% elif curso.estado == 'FIN' %}bg-secondary
+                                {% else %}bg-warning{% endif %}">
+                                {{ curso.get_estado_display }}
+                            </span>
+                        </td>
                         <td>
                             <a href="{% url 'admin:aprendices_curso_change' curso.pk %}" 
-                                class="btn btn-sm btn-outline-primary">
-                                Editar
+                                class="btn btn-sm btn-outline-success">
+                                <i class="bi bi-pencil"></i>
                             </a>
                         </td>
                     </tr>
@@ -57,21 +77,29 @@
             </table>
         </div>
     </div>
+    {% else %}
+    <!-- Estado vacío -->
+    <div class="card shadow-sm border-0 text-center py-5">
+        <i class="bi bi-book text-muted" style="font-size: 3rem;"></i>
+        <h4 class="text-muted mt-3">No hay cursos registrados</h4>
+        <a href="{% url 'admin:aprendices_curso_add' %}" class="btn btn-success mt-3">
+            <i class="bi bi-plus-circle"></i> Crear primer curso
+        </a>
+    </div>
+    {% endif %}
 </div>
-{% else %}
-<div class="row">
-    <div class="col-12">
-        <div class="alert alert-info" role="alert">
-            <h4 class="alert-heading">No hay Cursos registrados</h4>
-            <p>Aún no se han registrado Cursos en el sistema.</p>
-            <hr>
-            <p class="mb-0">
-                <a href="{% url 'admin:aprendices_curso_add' %}" class="btn btn-success">
-                    Registrar Primer Curso
-                </a>
-            </p>
-        </div>
     </div>
 </div>
-{% endif %}
+<style>
+    .table-success th {
+        background-color: #198754;
+        color: white;
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(25, 135, 84, 0.05);
+    }
+    .card {
+        border-radius: 10px;
+    }
+</style>
 {% endblock %}

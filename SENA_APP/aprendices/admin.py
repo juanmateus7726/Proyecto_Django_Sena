@@ -72,8 +72,8 @@ class CursoAdmin(admin.ModelAdmin):
         'codigo',
         'nombre',
         'programa__nombre',
-        'instructor_cordinador__nombre',
-        'instructor_cordinador__apellido'
+        'instructor_coordinador__nombre',
+        'instructor_coordinador__apellido'
     ]
     list_per_page = 15
     ordering = ['-fecha_inicio']
@@ -82,11 +82,11 @@ class CursoAdmin(admin.ModelAdmin):
     inlines = [InstructorCursoInline, AprendizCursoInline]
     
     fieldsets = (
-        ('Informacion Baica', {
+        ('Informacion Basica', {
             'fields': (
                 ('codigo', 'nombre'),
                 'programa',
-                'instructor_cordinador'
+                'instructor_coordinador'
             )
         }),
         ('Fechas y Horarios', {
@@ -108,8 +108,8 @@ class CursoAdmin(admin.ModelAdmin):
     def cupos_info(self, obj):
         ocupados = obj.aprendices.count()
         disponibles = obj.cupos_disponibles()
-        procentaje = obj.procentaje_ocupacion()
-        return f"{ocupados}/{obj.cupos_maximos} ({procentaje:1f}%)"
+        porcentaje = obj.porcentaje_ocupacion()
+        return f"{ocupados}/{obj.cupos_maximos} ({porcentaje:.1f}%)"
     cupos_info.short_description = 'Ocupacion'
     
 @admin.register(InstructorCurso)
