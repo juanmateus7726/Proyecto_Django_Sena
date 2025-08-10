@@ -52,3 +52,14 @@ def detalle_curso(request, curso_id):
     }
     
     return HttpResponse(template.render(context, request))
+
+
+def detalle_aprendiz(request, aprendiz_id):
+    apren = get_object_or_404(aprendiz, id=aprendiz_id)
+    template = loader.get_template('detalle_aprendiz.html')
+    
+    context = {
+        'aprendiz': apren,
+    }
+    
+    return HttpResponse(template.render(context, request))

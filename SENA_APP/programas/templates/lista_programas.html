@@ -39,11 +39,14 @@
                         <tbody>
                             {% for programa in lista_programas %}
                             <tr>
-                                <td><strong>{{ programa.codigo }}</strong></td>
+                                <td><strong><a href="programa/{{ programa.id }}">{{ programa.codigo }}</a></strong></td>
                                 <td>{{ programa.nombre }}</td>
                                 <td>{{ programa.nivel_formacion }}</td>
                                 <td>{{ programa.modalidad }}</td>
                                 <td>{{ programa.duracion_meses }} meses</td>
+                                <td>{{ programa.descripcion }}</td>
+                                <td>{{ programa.centro_formacion }}</td>
+                                <td>{{ programa.regional }}</td>
                                 <td>
                                     <a href="/admin/programas/programa/{{ programa.id }}/change/" 
                                     class="btn btn-sm btn-outline-warning">
