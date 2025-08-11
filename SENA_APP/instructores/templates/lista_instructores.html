@@ -1,71 +1,89 @@
 {% extends "base.html" %}
 
-{% block title %}Lista de Instructores SENA{% endblock %}
+{% block title %}Lista de Instructores - SENA APP{% endblock %}
 
 {% block content %}
-<div class="d-flex  flex-column min-vh-100 py-5">
+<div class="d-flex flex-column min-vh-100 py-5">
     <div class="container">
-<div class="bg-dark bg-opacity-50 rounded-4 p-4 border border-success border-opacity-25 shadow">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="fw-bold text-success">
-            <i class="bi bi-person-badge"></i> Instructores
-        </h1>
-        <div>
-            <span class="badge bg-success fs-6 me-2">
-                Total: {{ total_instructores }}
-            </span>
-            <a href='/admin/instructores/instructor/add/' class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> Nuevo
-            </a>
+        <div class="bg-dark bg-opacity-50 rounded-4 p-4 border border-success border-opacity-25 shadow">
+            
+            <!-- Encabezado -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="fw-bold text-success">
+                    <i class="bi bi-person-badge me-2"></i>Instructores
+                </h1>
+                <div>
+                    <span class="badge bg-success fs-6 me-2">
+                        Total: {{ total_instructores }}
+                    </span>
+                    <a href="/admin/instructores/instructor/add/" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Nuevo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tabla de instructores -->
+            {% if lista_instructores %}
+            <div class="table-responsive">
+                <table class="table table-dark table-hover table-striped align-middle">
+                    <thead class="table-success">
+                        <tr>
+                            <th>Documento</th>
+                            <th>Tipo Documento</th>
+                            <th>Nombre Completo</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Ciudad</th>
+                            <th>Dirección</th>
+                            <th>Nivel Educativo</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Especialidad</th>
+                            <th class="text-end">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instructor in lista_instructores %}
+                        <tr>
+                            <td>
+                                <strong>
+                                    <a href="instructor/{{ instructor.id }}" class="text-success text-decoration-none">
+                                        {{ instructor.documento_identidad }}
+                                    </a>
+                                </strong>
+                            </td>
+                            <td>{{ instructor.tipo_documento }}</td>
+                            <td>{{ instructor.nombre_completo }}</td>
+                            <td>
+                                <a href="mailto:{{ instructor.correo }}" class="text-decoration-none">
+                                    {{ instructor.correo }}
+                                </a>
+                            </td>
+                            <td>{{ instructor.telefono }}</td>
+                            <td>{{ instructor.ciudad }}</td>
+                            <td>{{ instructor.direccion }}</td>
+                            <td>{{ instructor.nivel_educativo }}</td>
+                            <td>{{ instructor.fecha_nacimiento|date:"d/m/y" }}</td>
+                            <td>{{ instructor.especialidad }}</td>
+                            <td class="text-end">
+                                <a href="/admin/instructores/instructor/{{ instructor.id }}/change/" 
+                                    class="btn btn-sm btn-warning me-1">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="/admin/instructores/instructor/{{ instructor.id }}/delete/" 
+                                    class="btn btn-sm btn-danger"
+                                    onclick="return confirm('¿Eliminar a {{ instructor.nombre_completo }}?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-center text-muted">No hay instructores registrados.</p>
+            {% endif %}
         </div>
-    </div>
-
-    {% if lista_instructores %}
-    <div class="table-responsive">
-        <table class="table table-dark table-hover table-striped">
-            <thead class="table-success">
-                <tr>
-                    <th>Documento</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Especialidad</th>
-                    <th class="text-end">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for instructor in lista_instructores %}
-                <tr>
-                    <td><strong><a href="instructor/{{ instructor.id }}">{{ instructor.documento_identidad }}</a></strong></td>
-                    <td>{{ instructor.tipo_documento }}</td>
-                    <td>{{ instructor.nombre_completo }}</td>
-                    <td>
-                        <a href="mailto:{{ instructor.correo }}">{{ instructor.correo }}</a>
-                    </td>
-                    <td>{{ instructor.telefono }}</td>
-                    <td>{{ instructor.ciudad }}</td>
-                    <td>{{ instructor.direccion }}</td>
-                    <td>{{ instructor.nivel_educativo }}</td>
-                    <td>{{ instructor.fecha_nacimiento|date:"d/m/y" }}</td>
-                    <td>{{ instructor.especialidad }}</td>
-
-                    <td class="text-end">
-                        <a href="/admin/instructores/instructor/{{ instructor.id }}/change/" 
-                        class="btn btn-sm btn-warning">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="/admin/instructores/instructor/{{ instructor.id }}/delete/" 
-                        class="btn btn-sm btn-danger"
-                        onclick="return confirm('¿Eliminar a {{ instructor.nombre_completo }}?')">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% endif %}
-</div>
     </div>
 </div>
 {% endblock %}

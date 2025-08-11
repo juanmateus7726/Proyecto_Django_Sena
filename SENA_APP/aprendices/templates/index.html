@@ -3,11 +3,12 @@
 {% block title %}SENA - Sistema de Gestión{% endblock %}
 
 {% block content %}
-<!-- Contenedor flexible que ocupa el 100% del alto disponible -->
-<div class="d-flex flex-column justify-content-center min-vh-100 py-5">  <!-- py-5: padding vertical -->
+<div class="d-flex flex-column justify-content-center min-vh-100 py-5">
     <div class="row justify-content-center">
         <div class="col-md-8 bg-dark bg-opacity-50 rounded-4 p-5 border border-success border-opacity-25 shadow-lg">
-            <h1 class="text-center mb-4 fw-bold text-success">Bienvenido a <span class="text-white">SENA</span></h1>
+            <h1 class="text-center mb-3 fw-bold text-success">
+                Bienvenido a <span class="text-light">SENA</span>
+            </h1>
             <p class="lead text-center mb-4 text-light">Gestión integral de aprendices e instructores</p>
             
             <div class="d-flex flex-wrap gap-3 justify-content-center">
@@ -21,12 +22,11 @@
                     <i class="bi bi-person-badge"></i> Instructores
                 </a>
                 <a href="/programas/" class="btn btn-outline-success px-4 py-2">
-                    <i class="bi bi-person-badge"></i> Programas
-                    </a>
-                <a href="/lista_cursos" class="btn btn-outline-succes px-4 py-2">
-                    <i class="bi bi-person-badge"></i> Cursos
+                    <i class="bi bi-diagram-3"></i> Programas
                 </a>
-                
+                <a href="/lista_cursos" class="btn btn-outline-success px-4 py-2">
+                    <i class="bi bi-list-task"></i> Cursos
+                </a>
             </div>
         </div>
     </div>

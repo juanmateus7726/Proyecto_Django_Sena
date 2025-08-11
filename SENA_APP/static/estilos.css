@@ -1,0 +1,47 @@
+/* ===== Estilo Global para todas las apps ===== */
+
+/* Fondo global */
+body {
+    background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+}
+
+/* Contenedor principal */
+main {
+    flex: 1;
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Tablas */
+.table-success th {
+    background-color: #198754 !important;
+    color: white !important;
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(25, 135, 84, 0.05) !important;
+}
+
+/* Botones outline mejorados */
+.btn-outline-success:hover {
+    background-color: #198754 !important;
+    color: white !important;
+}
+
+/* Tarjetas */
+.card, .bg-dark.bg-opacity-50 {
+    border-radius: 10px;
+    border: 1px solid rgba(25, 135, 84, 0.25);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
