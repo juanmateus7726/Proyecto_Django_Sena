@@ -3,6 +3,9 @@ from django.shortcuts import get_object_or_404, render
 from .models import Curso, aprendiz
 from django.template import loader
 
+from aprendices.forms import AprendizForm
+from django.views import generic
+
 
 # Create your views here.
 def aprendices(request):
@@ -63,3 +66,12 @@ def detalle_aprendiz(request, aprendiz_id):
     }
     
     return HttpResponse(template.render(context, request))
+
+class AprendizFormView(generic.FormView):
+    template_name = "agregar_aprendiz.html"
+    form_class = AprendizForm
+    success_url = '../aprendices/'
+    
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
